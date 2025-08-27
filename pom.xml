@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.xaplayd</groupId>
   <artifactId>testecorreios</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-
   <name>testecorreios</name>
-  
+
   <properties>
-		<java.version>24</java.version>
-  
+    <java.version>24</java.version>
   </properties>
 
   <dependencyManagement>
@@ -27,55 +27,54 @@
   </dependencyManagement>
 
   <dependencies>
-  <dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>2.3.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>jakarta.xml.ws</groupId>
+      <artifactId>jakarta.xml.ws-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
 
-		<dependency>
-			<groupId>jakarta.xml.ws</groupId>
-			<artifactId>jakarta.xml.ws-api</artifactId>
-			<version>3.0.0</version>
-		</dependency>
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
+      <version>3.0.0</version>
+    </dependency>
 
-		<dependency>
-			<groupId>com.sun.xml.ws</groupId>
-			<artifactId>jaxws-rt</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sun.xml.ws</groupId>
-			<artifactId>jaxws-ri</artifactId>
-			<version>3.0.0</version>
-			<type>pom</type>
-			</dependency>
-
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-ri</artifactId>
+      <version>3.0.0</version>
+      <type>pom</type>
+    </dependency>
   </dependencies>
 
   <build>
-   <plugins>
+    <plugins>
+      <!-- Compilador Java -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
@@ -83,30 +82,64 @@
           <release>24</release>
         </configuration>
       </plugin>
+
+      <!-- JAX-WS Plugin para múltiplos WSDLs -->
       <plugin>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>4.0.3</version>
         <executions>
-        	<execution>
-     			 <!-- <id>generate-ws-client</id>
-      			 <phase>generate-sources</phase> -->
-     				 <goals>
-        				<goal>wsimport</goal>
-      				 </goals>
-    	</execution>
+
+          <!-- WSDL 1 -->
+          <execution>
+            <id>generate-ws-client-1</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlUrls>
+                <wsdlUrl>http://snrsj:8080/g5-senior-services/sapiens_Synccom.senior.g5.doug?wsdl</wsdlUrl>
+              </wsdlUrls>
+              <keep>true</keep>
+              <packageName>com.senior.g5.doug</packageName>
+              <sourceDestDir>src/main/java</sourceDestDir>
+            </configuration>
+          </execution>
+
+          <!-- WSDL 2 -->
+          <execution>
+            <id>generate-ws-client-2</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlUrls>
+                <wsdlUrl></wsdlUrl>
+              </wsdlUrls>
+              <keep>true</keep>
+              <packageName></packageName>
+              <sourceDestDir>src/main/java</sourceDestDir>
+            </configuration>
+          </execution>
+
+          <!-- WSDL 3 -->
+          <execution>
+            <id>generate-ws-client-3</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlUrls>
+                <wsdlUrl></wsdlUrl>
+              </wsdlUrls>
+              <keep>true</keep>
+              <packageName></packageName>
+              <sourceDestDir>src/main/java</sourceDestDir>
+            </configuration>
+          </execution>
+
         </executions>
-        <configuration>
-        	<wsdlUrls>
-        		<wsdlUrl>http://snrsj:8080/g5-senior-services/sapiens_Synccom.senior.g5.doug?wsdl</wsdlUrl>
-        	</wsdlUrls>
-        	<keep>true</keep>
-        	<packageName>com.senior.g5.doug</packageName>
-        	<sourceDestDir>src/main/java</sourceDestDir>
-        </configuration>
       </plugin>
-      
-      
     </plugins>
   </build>
 
